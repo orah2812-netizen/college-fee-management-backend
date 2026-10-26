@@ -1,6 +1,8 @@
 package com.auca.collegefeemanagement.model;
 
-import java.util.UUID;
+import java.util.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 
@@ -14,6 +16,12 @@ public class FeeType {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String name;
+
+    @ManyToMany(mappedBy = "feeTypes")
+    @JsonIgnore
+
+    private List<Cashier> cashiers= new ArrayList<>();
+
     public FeeType() {
     }
     public UUID getId() {
@@ -27,6 +35,12 @@ public class FeeType {
     }
     public void setName(String name) {
         this.name = name;
+    }
+    public List<Cashier> getCashiers() {
+        return cashiers;
+    }
+    public void setCashiers(List<Cashier> cashiers) {
+        this.cashiers = cashiers;
     }
 
 }
