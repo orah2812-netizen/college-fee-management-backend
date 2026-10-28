@@ -3,7 +3,7 @@ package com.auca.collegefeemanagement.model;
 import java.util.UUID;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 
 @Entity 
@@ -14,10 +14,10 @@ public class FeePayment {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    private LocalDateTime paymentDate;
+  private LocalDate paymentDate;
 
     @Enumerated (EnumType.STRING)
-    private PaymentStatus paymentStatus;
+    private PaymentStatus status;
 
     private String academicYear;
     private double amountDue;
@@ -41,20 +41,20 @@ public class FeePayment {
         this.id = id;
     }
 
-    public LocalDateTime getPaymentDate() {
+    public LocalDate getPaymentDate() {
         return paymentDate;
     }
 
-    public void setPaymentDate(LocalDateTime paymentDate) {
+    public void setPaymentDate(LocalDate paymentDate) {
         this.paymentDate = paymentDate;
     }
 
-    public PaymentStatus getPaymentStatus() {
-        return paymentStatus;
+    public PaymentStatus getStatus() {
+        return status;
     }
 
-    public void setPaymentStatus(PaymentStatus paymentStatus) {
-        this.paymentStatus = paymentStatus;
+    public void setStatus(PaymentStatus status) {
+        this.status = status;
     }
 
     public String getAcademicYear() {
