@@ -32,6 +32,13 @@ public class StudentController {
     public List<Student> getByLastName(@RequestParam String lastName) {
         return studentService.getByLastName(lastName);
     }
+        @GetMapping("/of-cashier/{cashierId}")
+    public ResponseEntity<?> getOfCashier(@PathVariable UUID cashierId) {
+        if (!studentService.cashierExists(cashierId)) {
+            return new ResponseEntity<>("The cashier with that id does not exist", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(studentService.getOfCashier(cashierId), HttpStatus.OK);
+    }
     
         @GetMapping("/{id}")
     public ResponseEntity<Object> getById(@PathVariable UUID id) {

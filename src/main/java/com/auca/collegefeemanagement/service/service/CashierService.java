@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+
 @Service
 
 
@@ -25,6 +26,10 @@ public class CashierService {
     }
     public Optional<Cashier> getById(UUID id) {
         return cashierRepository.findById(id);
+    }
+
+        public List<Cashier> getByFeeType(String name) {
+        return cashierRepository.searchByFeeTypeName(name);
     }
 
     public String update(UUID id, Cashier cashier) {

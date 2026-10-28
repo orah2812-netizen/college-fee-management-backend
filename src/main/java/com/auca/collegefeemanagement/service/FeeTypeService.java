@@ -26,6 +26,9 @@ public class FeeTypeService {
     public Optional<FeeType> getById(UUID id) {
         return feeTypeRepository.findById(id);
     }
+        public List<FeeType> getUnused() {
+        return feeTypeRepository.findUnused();
+    }
 
     public String update(UUID id, FeeType feeType) {
         Optional<FeeType> existing = feeTypeRepository.findById(id);

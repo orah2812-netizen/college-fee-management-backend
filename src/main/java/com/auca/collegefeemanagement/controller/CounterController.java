@@ -28,6 +28,10 @@ public class CounterController {
     public List<Counter> getAll() {
         return counterService.getAll();
     }
+        @GetMapping("/free")
+    public List<Counter> getFree() {
+        return counterService.getFree();
+    }
     @GetMapping("/{id}")
     public ResponseEntity<Object> getById(@PathVariable UUID id) {
         Optional<Counter> counter = counterService.getById(id);

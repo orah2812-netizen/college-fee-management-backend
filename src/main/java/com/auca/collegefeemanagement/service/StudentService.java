@@ -1,6 +1,6 @@
 package com.auca.collegefeemanagement.service;
-
 import com.auca.collegefeemanagement.model.Student;
+import com.auca.collegefeemanagement.repository.CashierRepository;
 import com.auca.collegefeemanagement.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +12,9 @@ public class StudentService {
 
     @Autowired
     private StudentRepository studentRepository;
+
+    @Autowired
+    private CashierRepository cashierRepository;
 
     public String save(Student student) {
         studentRepository.save(student);
@@ -29,6 +32,7 @@ public class StudentService {
     public List<Student> getByLastName(String lastName) {
         return studentRepository.findByLastNameIgnoreCaseOrderByFirstNameAsc(lastName);
     }
+
 
     public String update(UUID id, Student student) {
         Optional<Student> existing = studentRepository.findById(id);
@@ -51,5 +55,12 @@ public class StudentService {
         }
         studentRepository.deleteById(id);
         return "Student deleted successfully";
+    }
+        public boolean cashierExists(UUID cashierId) {
+        return cashierRepository.existsById(cashierId);
+    }
+
+    public List<Student> getOfCashier(UUID cashierId) {
+        return studentRepository.findStudentsOfCashier(cashierId);
     }
 }

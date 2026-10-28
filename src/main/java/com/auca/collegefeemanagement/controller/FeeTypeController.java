@@ -24,6 +24,10 @@ public class FeeTypeController {
     public List<FeeType> getAll() {
         return feeTypeService.getAll();
     }
+        @GetMapping("/unused")
+    public List<FeeType> getUnused() {
+        return feeTypeService.getUnused();
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> getById(@PathVariable UUID id) {

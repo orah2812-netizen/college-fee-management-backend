@@ -31,6 +31,10 @@ public class CashierController {
     public List<Cashier> getAll() {
         return cashierService.getAll();
     }
+        @GetMapping("/by-fee-type")
+    public List<Cashier> getByFeeType(@RequestParam String name) {
+        return cashierService.getByFeeType(name);
+    }
 
      @GetMapping("/{id}")
     public ResponseEntity<Object> getById(@PathVariable UUID id) {

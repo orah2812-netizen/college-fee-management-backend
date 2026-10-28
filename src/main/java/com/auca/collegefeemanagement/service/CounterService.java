@@ -26,6 +26,11 @@ public class CounterService {
     public Optional<Counter> getById(UUID id) {
         return counterRepository.findById(id);
     }
+        public List<Counter> getFree() {
+        return counterRepository.findFreeCounters();
+    }
+
+    
 
     public String update(UUID id, Counter counter) {
         Optional<Counter> existing = counterRepository.findById(id);
