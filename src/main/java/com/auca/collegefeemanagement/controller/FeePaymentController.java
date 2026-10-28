@@ -1,5 +1,5 @@
 package com.auca.collegefeemanagement.controller;
-
+import com.auca.collegefeemanagement.model.PaymentStatus;
 
 import com.auca.collegefeemanagement.model.FeePayment;
 import com.auca.collegefeemanagement.service.service.FeePaymentService;
@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 import java.util.*;
 
 @RestController
@@ -27,6 +29,20 @@ public class FeePaymentController {
     public List<FeePayment> getAll() {
         return feePaymentService.getAll();
     }   
+       @GetMapping("/by-status")
+   public List<FeePayment> getByStatus(@RequestParam PaymentStatus status) {
+       return feePaymentService.getByStatus(status);
+   } 
+     @GetMapping("/between")
+       public List<FeePayment> getBetween(@RequestParam String start, @RequestParam String end) {
+           LocalDate startDate = LocalDate.parse(start);
+           LocalDate endDate = LocalDate.parse(end);
+           return feePaymentService.getBetween(startDate, endDate);
+       }
+
+
+
+
     @GetMapping ("/{id}")
     public ResponseEntity<Object> getById(@PathVariable UUID id) {
         Optional<FeePayment> feePayment = feePaymentService.getById(id);

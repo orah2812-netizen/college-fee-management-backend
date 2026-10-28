@@ -1,12 +1,13 @@
 package com.auca.collegefeemanagement.service.service;
-
+import com.auca.collegefeemanagement.model.PaymentStatus;
 import com.auca.collegefeemanagement.model.FeePayment;
 import com.auca.collegefeemanagement.repository.FeePaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+
+import java.time.LocalDate;
+import java.util.*;
+
 
 @Service 
 
@@ -26,6 +27,15 @@ public String save(FeePayment feePayment) {
     public Optional<FeePayment> getById(UUID id) {
         return feePaymentRepository.findById(id);
     }
+    public List<FeePayment> getByStatus(PaymentStatus status) {
+        return feePaymentRepository.findByStatusOrderByPaymentDateAsc(status);
+    }
+
+           public List<FeePayment> getBetween(LocalDate start, LocalDate end) {
+           return feePaymentRepository.findByPaymentDateBetweenOrderByPaymentDateAsc(start, end);
+       }
+
+
   public String update(UUID id, FeePayment feePayment) {
         Optional<FeePayment> existing = feePaymentRepository.findById(id);
         if (existing.isEmpty()) {
