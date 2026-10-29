@@ -2,6 +2,8 @@ package com.auca.collegefeemanagement.service.service;
 import com.auca.collegefeemanagement.model.PaymentStatus;
 import com.auca.collegefeemanagement.model.FeePayment;
 import com.auca.collegefeemanagement.repository.FeePaymentRepository;
+import com.auca.collegefeemanagement.repository.ReceiptRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,9 @@ public class FeePaymentService {
 
     @Autowired 
    private FeePaymentRepository feePaymentRepository;
+
+      @Autowired
+    private ReceiptRepository receiptRepository;
 
     public String save(FeePayment payment) {
         if (payment.getPaymentDate() == null || payment.getPaymentDate().isBefore(LocalDate.now())) {
@@ -82,13 +87,19 @@ public class FeePaymentService {
         feePaymentRepository.save(payment);
         return "Fee payment status updated successfully";
     }
-
-     public String delete(UUID id) {
-        if (!feePaymentRepository.existsById(id)) {
+    public String delete(UUID id) {
+        Optional<FeePayment> payment = feePaymentRepository.findById(id);
+        if (payment.isEmpty()) {
             return "The fee payment with that id does not exist";
+        }
+        if (receiptRepository.existsByFeePayment(payment.get())) {
+            return "That fee payment has receipts, delete them first";
         }
         feePaymentRepository.deleteById(id);
         return "Fee payment deleted successfully";
+    }
+        public List<Object[]> getStatsByStatus() {
+        return feePaymentRepository.countByStatus();
     }
 }
 

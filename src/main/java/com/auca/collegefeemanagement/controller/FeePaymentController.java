@@ -71,14 +71,15 @@ public class FeePaymentController {
         }
     }
 
-    @DeleteMapping("/delete/{id}")
+       @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> delete(@PathVariable UUID id) {
         String message = feePaymentService.delete(id);
         if (message.equals("The fee payment with that id does not exist")) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
-        } else {
-            return ResponseEntity.ok(message);
+        } else if (message.equals("That fee payment has receipts, delete them first")) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(message);
         }
+        return ResponseEntity.ok(message);
     }
        @PatchMapping("/{id}/status")
     public ResponseEntity<String> updateStatus(@PathVariable UUID id, @RequestParam PaymentStatus status) {
@@ -89,5 +90,9 @@ public class FeePaymentController {
             return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+        @GetMapping("/stats/by-status")
+    public List<Object[]> getStatsByStatus() {
+        return feePaymentService.getStatsByStatus();
     }
 }
