@@ -66,4 +66,22 @@ public class CashierController {
             return ResponseEntity.ok(message);
         }
     }
+        @PutMapping("/{cashierId}/fee-types/{feeTypeId}")
+    public ResponseEntity<String> addFeeType(@PathVariable UUID cashierId, @PathVariable UUID feeTypeId) {
+        String message = cashierService.addFeeType(cashierId, feeTypeId);
+        if (message.endsWith("does not exist")) {
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        } else if (message.equals("Cashier already holds that fee type")) {
+            return new ResponseEntity<>(message, HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+       @PatchMapping("/{cashierId}/counter")
+    public ResponseEntity<String> changeCounter(@PathVariable UUID cashierId, @RequestParam int counterNumber) {
+        String message = cashierService.changeCounter(cashierId, counterNumber);
+        if (message.endsWith("does not exist")) {
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
 }

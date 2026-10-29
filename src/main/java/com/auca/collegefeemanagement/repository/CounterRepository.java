@@ -10,5 +10,6 @@ public interface CounterRepository  extends JpaRepository<Counter, UUID> {
 
        @Query("SELECT l FROM Counter l WHERE NOT EXISTS (SELECT c FROM Cashier c WHERE c.counter = l) ORDER BY l.counterNumber")
     List<Counter> findFreeCounters();
+    Optional<Counter> findByCounterNumber(int counterNumber);  
     
 }

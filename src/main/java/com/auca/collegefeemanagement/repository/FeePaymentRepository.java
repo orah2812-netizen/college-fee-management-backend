@@ -12,6 +12,8 @@ public interface FeePaymentRepository extends JpaRepository<FeePayment, UUID> {
 
     List<FeePayment> findByStatusOrderByPaymentDateAsc(PaymentStatus status);
         List<FeePayment> findByPaymentDateBetweenOrderByPaymentDateAsc(LocalDate start, LocalDate end);
+        
+         boolean existsByCashierIdAndPaymentDateAndStatusNot(UUID cashierId, LocalDate paymentDate, PaymentStatus status);
 }
 
 

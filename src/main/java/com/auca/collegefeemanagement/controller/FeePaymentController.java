@@ -19,10 +19,15 @@ public class FeePaymentController {
     @Autowired 
     private FeePaymentService feePaymentService;
 
-    @PostMapping("/save")
-    public ResponseEntity<String> save(@RequestBody FeePayment feePayment) {
-        String message = feePaymentService.save(feePayment);
-        return ResponseEntity.status(HttpStatus.CREATED).body(message);
+       @PostMapping("/save")
+    public ResponseEntity<String> save(@RequestBody FeePayment payment) {
+        String message = feePaymentService.save(payment);
+        if (message.equals("Fee payment date cannot be in the past")) {
+            return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+        } else if (message.equals("Cashier already has a payment booked on that date")) {
+            return new ResponseEntity<>(message, HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity<>(message, HttpStatus.CREATED);
     }
 
     @GetMapping("/all")
@@ -75,5 +80,14 @@ public class FeePaymentController {
             return ResponseEntity.ok(message);
         }
     }
-    
+       @PatchMapping("/{id}/status")
+    public ResponseEntity<String> updateStatus(@PathVariable UUID id, @RequestParam PaymentStatus status) {
+        String message = feePaymentService.updateStatus(id, status);
+        if (message.equals("The fee payment with that id does not exist")) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+        } else if (message.startsWith("Cannot change status")) {
+            return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
 }

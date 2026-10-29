@@ -15,11 +15,19 @@ public class FeePaymentService {
 
     @Autowired 
    private FeePaymentRepository feePaymentRepository;
-public String save(FeePayment feePayment) {
-        feePaymentRepository.save(feePayment);
+
+    public String save(FeePayment payment) {
+        if (payment.getPaymentDate() == null || payment.getPaymentDate().isBefore(LocalDate.now())) {
+            return "Fee payment date cannot be in the past";
+        }
+        if (payment.getCashier() != null && feePaymentRepository.existsByCashierIdAndPaymentDateAndStatusNot(
+                payment.getCashier().getId(), payment.getPaymentDate(), PaymentStatus.REVERSED)) {
+            return "Cashier already has a payment booked on that date";
+        }
+        payment.setStatus(PaymentStatus.SUBMITTED);
+        feePaymentRepository.save(payment);
         return "Fee payment saved successfully";
     }
-
     public List<FeePayment> getAll() {
         return feePaymentRepository.findAll();
     }
@@ -49,6 +57,30 @@ public String save(FeePayment feePayment) {
         old.setCashier(feePayment.getCashier());
         feePaymentRepository.save(old);
         return "Fee payment updated successfully";
+    }
+    public String updateStatus(UUID id, PaymentStatus newStatus) {
+        Optional<FeePayment> existing = feePaymentRepository.findById(id);
+        if (existing.isEmpty()) {
+            return "The fee payment with that id does not exist";
+        }
+       FeePayment payment = existing.get();
+        PaymentStatus current = payment.getStatus();
+        boolean allowed = false;
+      if (current == PaymentStatus.SUBMITTED
+                && (newStatus == PaymentStatus.VERIFIED || newStatus == PaymentStatus.REVERSED)) {
+            allowed = true;
+       } else if (current == PaymentStatus.VERIFIED
+                && (newStatus == PaymentStatus.POSTED || newStatus == PaymentStatus.REVERSED)) {
+            allowed = true;
+        } else if (current == PaymentStatus.POSTED && newStatus == PaymentStatus.REVERSED) {
+            allowed = true;
+        }
+ if (!allowed) {
+            return "Cannot change status from " + current + " to " + newStatus;
+        }
+        payment.setStatus(newStatus);
+        feePaymentRepository.save(payment);
+        return "Fee payment status updated successfully";
     }
 
      public String delete(UUID id) {
