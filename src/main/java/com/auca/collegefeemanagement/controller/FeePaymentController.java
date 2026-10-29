@@ -95,4 +95,9 @@ public class FeePaymentController {
     public List<Object[]> getStatsByStatus() {
         return feePaymentService.getStatsByStatus();
     }
+        @PatchMapping("/cancel-day")
+    public ResponseEntity<String> cancelDay(@RequestParam UUID cashierId, @RequestParam String date) {
+        String message = feePaymentService.cancelDay(cashierId, LocalDate.parse(date));
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
 }

@@ -101,5 +101,9 @@ public class FeePaymentService {
         public List<Object[]> getStatsByStatus() {
         return feePaymentRepository.countByStatus();
     }
+        public String cancelDay(UUID cashierId, LocalDate date) {
+        int count = feePaymentRepository.cancelDay(cashierId, date);
+        return count + " fee payments cancelled";
+    }
 }
 
