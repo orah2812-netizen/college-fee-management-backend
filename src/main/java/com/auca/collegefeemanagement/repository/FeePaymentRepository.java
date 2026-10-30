@@ -29,6 +29,10 @@ public interface FeePaymentRepository extends JpaRepository<FeePayment, UUID> {
          + "WHERE p.cashier.id = :cashierId AND p.paymentDate = :date "
          + "AND p.status <> com.auca.collegefeemanagement.model.PaymentStatus.POSTED")
     int cancelDay(@Param("cashierId") UUID cashierId, @Param("date") LocalDate date);
+
+    long countByPaymentDate(LocalDate PaymentDate);
+    
+     long countByStatusIs(PaymentStatus status);
 }
 
 

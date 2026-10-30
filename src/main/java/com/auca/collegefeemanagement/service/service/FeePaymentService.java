@@ -1,4 +1,5 @@
 package com.auca.collegefeemanagement.service.service;
+
 import com.auca.collegefeemanagement.model.PaymentStatus;
 import com.auca.collegefeemanagement.model.FeePayment;
 import com.auca.collegefeemanagement.repository.FeePaymentRepository;
@@ -9,6 +10,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 
 
 @Service 
@@ -104,6 +108,10 @@ public class FeePaymentService {
         public String cancelDay(UUID cashierId, LocalDate date) {
         int count = feePaymentRepository.cancelDay(cashierId, date);
         return count + " fee payments cancelled";
+    }
+
+    public Page<FeePayment> getPage(Pageable pageable) {
+        return feePaymentRepository.findAll(pageable);
     }
 }
 

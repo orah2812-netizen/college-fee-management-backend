@@ -5,12 +5,15 @@ import com.auca.collegefeemanagement.model.FeePayment;
 import com.auca.collegefeemanagement.service.service.FeePaymentService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.*;
+import org.springframework.data.domain.*;
 
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.*;
+
 
 @RestController
 @RequestMapping("/api/fee-payments")
@@ -99,5 +102,16 @@ public class FeePaymentController {
     public ResponseEntity<String> cancelDay(@RequestParam UUID cashierId, @RequestParam String date) {
         String message = feePaymentService.cancelDay(cashierId, LocalDate.parse(date));
         return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+       @GetMapping("/page")
+    public Page<FeePayment> getPage(@RequestParam int page, @RequestParam int size, @RequestParam String sort) {
+        String[] parts = sort.split(",");
+        Sort.Direction direction = Sort.Direction.ASC;
+        if (parts.length > 1 && parts[1].equalsIgnoreCase("desc")) {
+            direction = Sort.Direction.DESC;
+        }
+        Pageable pageable = PageRequest.of(page, size, Sort.by(direction, parts[0]));
+        return feePaymentService.getPage(pageable);
     }
 }

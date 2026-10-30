@@ -19,7 +19,7 @@ public class Receipt {
     private LocalDate  issuedDate;
 
     @ManyToOne 
-    @JoinColumn(name = "feepayment_id")
+    @JoinColumn(name = "fee_payment_id")
     private FeePayment feePayment;
 
     public Receipt() {
