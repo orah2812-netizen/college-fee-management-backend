@@ -11,7 +11,6 @@ import org.springframework.data.repository.query.Param;
 import java.time.LocalDate;
 import java.util.*;
 
-import jakarta.transaction.Transactional;
 
 public interface FeePaymentRepository extends JpaRepository<FeePayment, UUID> {
 
@@ -24,7 +23,6 @@ public interface FeePaymentRepository extends JpaRepository<FeePayment, UUID> {
     List<Object[]> countByStatus();
 
         @Modifying
-    @Transactional
     @Query("UPDATE FeePayment p SET p.status = com.auca.collegefeemanagement.model.PaymentStatus.REVERSED "
          + "WHERE p.cashier.id = :cashierId AND p.paymentDate = :date "
          + "AND p.status <> com.auca.collegefeemanagement.model.PaymentStatus.POSTED")

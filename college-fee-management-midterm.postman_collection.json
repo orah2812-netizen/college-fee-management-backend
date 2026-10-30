@@ -1,0 +1,909 @@
+{
+  "info": {
+    "_postman_id": "50549f2b-6dbc-44f4-a70f-128a6b8ebb9a",
+    "name": "college-fee-management",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "58949187",
+    "_collection_link": "https://go.postman.co/collection/58949187-50549f2b-6dbc-44f4-a70f-128a6b8ebb9a?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Part B",
+      "item": [
+        {
+          "name": "b1",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/students/by-last-name?lastName=uwase",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "students",
+                "by-last-name"
+              ],
+              "query": [
+                {
+                  "key": "lastName",
+                  "value": "uwase"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "b2",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/fee-payments/by-status?status=SUBMITTED",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "fee-payments",
+                "by-status"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "SUBMITTED"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "B3",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/fee-payments/between?start=2026-10-01&end=2026-10-31",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "fee-payments",
+                "between"
+              ],
+              "query": [
+                {
+                  "key": "start",
+                  "value": "2026-10-01"
+                },
+                {
+                  "key": "end",
+                  "value": "2026-10-31"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "seed data",
+      "item": [
+        {
+          "name": "save cashier",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"firstName\": \"Marie\",\r\n  \"lastName\": \"Ingabire\",\r\n  \"staffNumber\": \"S002\",\r\n  \"counter\": {\"id\": \"e6f27477-9683-4727-9a2b-98a04da338a1\"},\r\n  \"feeTypes\": [{\"id\": \"415396e2-a321-431d-a5ea-24514032bba7\"}]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/cashiers/save",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "cashiers",
+                "save"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All cashier",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/fee-types/all",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "fee-types",
+                "all"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "save payments",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"paymentDate\": \"2026-11-18\",\n  \"status\": \"POSTED\",\n  \"academicYear\": \"2026-2027\",\n  \"amountDue\": 75000,\n  \"student\": {\"id\": \"b994d394-19d7-4114-ab99-d3115e188379\"},\n  \"cashier\": {\"id\": \"e73a2b93-c446-4b47-ba55-2a146cb85b50\"}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/fee-payments/save",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "fee-payments",
+                "save"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get all payment",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/fee-payments/all",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "fee-payments",
+                "all"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Part C",
+      "item": [
+        {
+          "name": "C1",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/cashiers/by-fee-type?name=tuition",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "cashiers",
+                "by-fee-type"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "tuition"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "C2",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/counters/free",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "counters",
+                "free"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "C3",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/fee-types/unused",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "fee-types",
+                "unused"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "C4",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/students/of-cashier/00000000-0000-0000-0000-000000000000",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "students",
+                "of-cashier",
+                "00000000-0000-0000-0000-000000000000"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Part D",
+      "item": [
+        {
+          "name": "D1",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"paymentDate\": \"2027-04-01\",\r\n  \"status\": \"SUBMITTED\",\r\n  \"academicYear\": \"2026-2027\",\r\n  \"amountDue\": 50000,\r\n  \"student\": { \"id\": \"770ee71f-b263-48ac-bd47-1520e4c6463e\" },\r\n  \"cashier\": { \"id\": \"e73a2b93-c446-4b47-ba55-2a146cb85b50\" }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/fee-payments/save",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "fee-payments",
+                "save"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "D2",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/fee-payments/df6da714-2606-4dbd-bcff-35a26d9e1462/status?status=VERIFIED",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "fee-payments",
+                "df6da714-2606-4dbd-bcff-35a26d9e1462",
+                "status"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "VERIFIED"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "D2Not allowed",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/fee-payments/d65f5d58-1973-4ca7-93d3-ebc6e43168f2/status?status=REVERSED",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "fee-payments",
+                "d65f5d58-1973-4ca7-93d3-ebc6e43168f2",
+                "status"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "REVERSED"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "D3",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/cashiers/1b57d00d-458d-4d0b-beaa-aad80e0484d3/fee-types/86d52a01-89f5-45c8-b792-fe27da3721f4",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "cashiers",
+                "1b57d00d-458d-4d0b-beaa-aad80e0484d3",
+                "fee-types",
+                "86d52a01-89f5-45c8-b792-fe27da3721f4"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "D3Conflict",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/cashiers/f0f39fc6-b4b6-4c06-85d1-512c15142028/fee-types/dd835b89-0fd7-48af-88d1-34269c56d238",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "cashiers",
+                "f0f39fc6-b4b6-4c06-85d1-512c15142028",
+                "fee-types",
+                "dd835b89-0fd7-48af-88d1-34269c56d238"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "D4",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/cashiers/1b57d00d-458d-4d0b-beaa-aad80e0484d3/counter?counterNumber=1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "cashiers",
+                "1b57d00d-458d-4d0b-beaa-aad80e0484d3",
+                "counter"
+              ],
+              "query": [
+                {
+                  "key": "counterNumber",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "D4 Cashier misssing",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/cashiers/00000000-0000-0000-0000-000000000000/counter?counterNumber=4",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "cashiers",
+                "00000000-0000-0000-0000-000000000000",
+                "counter"
+              ],
+              "query": [
+                {
+                  "key": "counterNumber",
+                  "value": "4"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "PartE",
+      "item": [
+        {
+          "name": "posted",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/fee-payments/d65f5d58-1973-4ca7-93d3-ebc6e43168f2/status?status=POSTED",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "fee-payments",
+                "d65f5d58-1973-4ca7-93d3-ebc6e43168f2",
+                "status"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "POSTED"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "E1",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"feeItem\": \"Tuition instalment\",\r\n  \"note\": \"First semester instalment\",\r\n  \"amount\": 250000\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/receipts/save?feePaymentId=d65f5d58-1973-4ca7-93d3-ebc6e43168f2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "receipts",
+                "save"
+              ],
+              "query": [
+                {
+                  "key": "feePaymentId",
+                  "value": "d65f5d58-1973-4ca7-93d3-ebc6e43168f2"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "E2",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/receipts/student/24-0845",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "receipts",
+                "student",
+                "24-0845"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "E3",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/fee-payments/delete/d65f5d58-1973-4ca7-93d3-ebc6e43168f2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "fee-payments",
+                "delete",
+                "d65f5d58-1973-4ca7-93d3-ebc6e43168f2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "E3 Delete receipt",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/receipts/delete/7dec0fac-7168-44ae-a952-e87fc9d4ca12",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "receipts",
+                "delete",
+                "7dec0fac-7168-44ae-a952-e87fc9d4ca12"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "PartF",
+      "item": [
+        {
+          "name": "F1",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/fee-payments/stats/by-status",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "fee-payments",
+                "stats",
+                "by-status"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "F2",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/fee-payments/cancel-day?cashierId=e73a2b93-c446-4b47-ba55-2a146cb85b50&date=2027-03-01",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "fee-payments",
+                "cancel-day"
+              ],
+              "query": [
+                {
+                  "key": "cashierId",
+                  "value": "e73a2b93-c446-4b47-ba55-2a146cb85b50"
+                },
+                {
+                  "key": "date",
+                  "value": "2027-03-01"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Bonus",
+      "item": [
+        {
+          "name": "bonus1",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/dashboard/summary",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "dashboard",
+                "summary"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Bonus 2",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/fee-payments/page?page=0&size=5&sort=paymentDate,desc",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "fee-payments",
+                "page"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "5"
+                },
+                {
+                  "key": "sort",
+                  "value": "paymentDate,desc"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "A1",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/fee-types/all",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "fee-types",
+            "all"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "save controller",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"counterNumber\": 4, \"name\": \"Counter 4\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/counters/save",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "counters",
+            "save"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "all counter",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/counters/all",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "counters",
+            "all"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "save student",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"firstName\": \"Grace\", \"lastName\": \"Mukamana\", \"regNumber\": \"24-0845\", \"program\": \"Business IT\", \"phone\": \"0788000004\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/students/save",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "students",
+            "save"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "all student",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/students/all",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "students",
+            "all"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "A2 feetype save",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\": \"Accommodation\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/fee-types/save",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "fee-types",
+            "save"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

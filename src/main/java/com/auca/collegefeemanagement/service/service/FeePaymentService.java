@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.util.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 
 
 
@@ -103,6 +104,7 @@ public class FeePaymentService {
         public List<Object[]> getStatsByStatus() {
         return feePaymentRepository.countByStatus();
     }
+    @Transactional
         public String cancelDay(UUID cashierId, LocalDate date) {
         int count = feePaymentRepository.cancelDay(cashierId, date);
         return count + " fee payments cancelled";
