@@ -6,7 +6,6 @@ import com.auca.collegefeemanagement.model.FeeType;
 import com.auca.collegefeemanagement.repository.CashierRepository;
 import com.auca.collegefeemanagement.repository.CounterRepository;
 import com.auca.collegefeemanagement.repository.FeeTypeRepository;
-import com.auca.collegefeemanagement.service.FeeTypeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,40 +69,43 @@ public class CashierService {
         cashierRepository.deleteById(id);
         return "Cashier deleted successfully";
     }
-        public String addFeeType(UUID cashierId, UUID feeTypeId) {
+            public String addFeeType(UUID cashierId, UUID feeTypeId) {
         Optional<Cashier> cashier = cashierRepository.findById(cashierId);
         if (cashier.isEmpty()) {
             return "The cashier with that id does not exist";
         }
         Optional<FeeType> feeType = feeTypeRepository.findById(feeTypeId);
         if (feeType.isEmpty()) {
-            return "The fee type with that id does not exist";
+            return "That fee type does not exist";
         }
         Cashier c = cashier.get();
         for (FeeType f : c.getFeeTypes()) {
             if (f.getId().equals(feeTypeId)) {
-                return "Cashier already holds that fee type";
+                return "The cashier already has that fee type";
             }
         }
         c.getFeeTypes().add(feeType.get());
         cashierRepository.save(c);
-        return "Fee type assigned to cashier successfully";
+        return "Fee type added to the cashier";
     }
 
-    public String changeCounter(UUID cashierId, int counterNumber) {
-
+       public String changeCounter(UUID cashierId, int counterNumber) {
         Optional<Cashier> cashier = cashierRepository.findById(cashierId);
         if (cashier.isEmpty()) {
             return "The cashier with that id does not exist";
         }
         Optional<Counter> counter = counterRepository.findByCounterNumber(counterNumber);
         if (counter.isEmpty()) {
-            return "The counter with that number does not exist";
+            return "The counter with that counterNumber does not exist";
         }
         Cashier c = cashier.get();
+        boolean alreadyHis = c.getCounter() != null
+                && c.getCounter().getId().equals(counter.get().getId());
+        if (!alreadyHis && cashierRepository.existsByCounter(counter.get())) {
+            return "That counter is taken by another cashier";
+        }
         c.setCounter(counter.get());
         cashierRepository.save(c);
-        return "Counter updated successfully";
-        
+        return "Counter changed successfully";
     }
 }

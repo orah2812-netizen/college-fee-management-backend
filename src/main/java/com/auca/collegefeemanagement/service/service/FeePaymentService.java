@@ -81,9 +81,7 @@ public class FeePaymentService {
        } else if (current == PaymentStatus.VERIFIED
                 && (newStatus == PaymentStatus.POSTED || newStatus == PaymentStatus.REVERSED)) {
             allowed = true;
-        } else if (current == PaymentStatus.POSTED && newStatus == PaymentStatus.REVERSED) {
-            allowed = true;
-        }
+                }
  if (!allowed) {
             return "Cannot change status from " + current + " to " + newStatus;
         }
